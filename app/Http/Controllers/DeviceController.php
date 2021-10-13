@@ -1,9 +1,10 @@
 <?php
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
+
 use App\Models\Device;
 use Validator;
-
+use Illuminate\Support\Facades\Hash;
 class DeviceController extends Controller
     {
    
@@ -17,6 +18,8 @@ class DeviceController extends Controller
        $device=new Device;
         $device->name=$req->input('name');
         $device->email=$req->input('email');
+       $device->password = Hash::make(request('password'));
+       
         $device->save();
    
         return response()->json($device);
@@ -52,7 +55,8 @@ public function show(Device $device)
         $res= Device::find($request->id);
         $res->name= $request->input('name');
         $res->email= $request->input('email');
-         $res->save();
+        $res->password = Hash::make(request('password'));
+        $res->save();
          return response()->json(['message'=>'Record save in database'],200);
        }catch (\Exception $e){
         return response()->json(['message'=>$e->getMessage()],401);

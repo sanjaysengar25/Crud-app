@@ -8,5 +8,5 @@ class Device extends Model
 {
     protected $table = "devices";
 
-    protected $fillable = ['name','email'];
+    protected $fillable = ['name','email','password'];
 }
